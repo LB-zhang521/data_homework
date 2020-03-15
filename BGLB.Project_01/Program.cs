@@ -1,6 +1,5 @@
 ﻿using System;
 
-
 namespace BGLB.Project_01
 {
     public class Program
@@ -41,6 +40,7 @@ namespace BGLB.Project_01
             */
             #endregion
             #region 单链表
+            /**
             LinkList<int> linkList = new LinkList<int>();
             Console.WriteLine("初始化单链表：");
             Console.WriteLine("链表刚生成后的长度：{0}", linkList.GetLength());
@@ -72,26 +72,85 @@ namespace BGLB.Project_01
             Console.WriteLine("链表清空后的长度：{0}", linkList.GetLength());
             linkList.Display(linkList);
             Console.Read();
+      */
             #endregion
-            # region 希翼作业题未注释
-               string s = Console.ReadLine();
-               string[] p = s.Split(' ');
-               LinkList<Array> obj = new LinkList<Array>();
-               for (int i = 0; i < p.Length; i++)
-               {
-                   string[] l = p[i].Split('，');
-                   string temp = l[0];
-                   l[0] = "num=" + temp;
-                   temp = l[1];
-                   l[1] = "score=" + temp;
-                   obj.Append(l);
-               }
-               Display(obj);
-               Console.Read();
-           
-        }
-        #endregion
+            #region 希翼作业题1
+            /**
+            string s = Console.ReadLine();
+            string[] p = s.Split(' ');
+            LinkList<Array> obj = new LinkList<Array>();
+            for (int i = 0; i < p.Length; i++)
+            {
+                string[] l = p[i].Split(',');
+                string temp = l[0];
+                l[0] = "num=" + temp;
+                temp = l[1];
+                l[1] = "score=" + temp;
+                obj.Append(l);
+            }
+            Display(obj);
+            Console.Read();
+    */
+            #endregion
+            #region 希翼作业2
+            string s = Console.ReadLine();
+            string l = Console.ReadLine();
+            string[] p = s.Split(' ');
+            string[] q = l.Split(' ');
+            LinkList<string> linkList1 = new LinkList<string>(p);
+            LinkList<string> linkList2 = new LinkList<string>(q);
+            Console.WriteLine("原始链表1：");
+            linkList1.Display();
+            Console.WriteLine("原始链表2：");
+            linkList2.Display();
 
+
+            Console.WriteLine("两个链表首尾合并");
+            LinkList<string> test1 = linkList1.Merge1(linkList1, linkList2);
+            test1.Display();
+
+
+            //Console.WriteLine("两个非降序链表合并去重");
+            //LinkList<string> test2 = linkList1.Merge2(linkList1, linkList2);
+            //test2.Display();
+            //linkList1.Display();
+
+            //LinkList<string> h = new LinkList<string>();
+            //Node<string> a = linkList1.Merge(linkList1.Head, linkList2.Head);
+            //h.Head.Next = a;
+            //Console.WriteLine("非降序链表合并排序输出（递归算法：）");
+            //h.Display();
+            Console.Read();
+            #endregion
+            #region 希翼作业3 已提交完成
+            /**
+            string s = Console.ReadLine();
+            string[] p = s.Split(' ');
+            int k = Convert.ToInt32(p[0]);
+            LinkList<string> linkList = new LinkList<string>(p,1);
+            // linkList.Display();
+            
+            if (k>linkList.GetLength())
+            {
+                Console.WriteLine("Not Found");
+            }
+            else
+            {
+                  Node<string> q = linkList.Head.Next;
+                            for (int i = k; i < linkList.GetLength(); i++)
+                            {
+                                q = q.Next;
+                            }
+                Console.WriteLine(q.Data);
+            }
+            Console.ReadLine();
+    */
+            #endregion
+        }
+        /// <summary>
+        /// 作业1的输出
+        /// </summary>
+        /// <param name="linkList"></param>
         public static void Display(LinkList<Array> linkList)
         {
             Node<Array> A = linkList.Head.Next;
