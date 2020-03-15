@@ -165,24 +165,24 @@ namespace BGLB.Project_01
 
 
 
-            //Console.WriteLine("两个链表首尾合并，不改变原始链表");
-            //LinkList<string> test1 = Merge123(linkList1, linkList2);
-            //Console.WriteLine("合并后的新链表：");
-            //test1.Display();
-            //Console.WriteLine("原始链表1：");
-            //linkList1.Display();
-            //Console.WriteLine("原始链表2：");
-            //linkList2.Display();
-
-            #region 符合平台要求的
-            Console.WriteLine("两个非降序链表合并去重");
-            linkList1.Merge2(linkList2);
-            Console.WriteLine("合并去重后的链表");
-            linkList1.Display();
+            Console.WriteLine("两个链表首尾合并，不改变原始链表");
+            LinkList<string> test1 = Merge123(linkList1, linkList2);
+            Console.WriteLine("合并后的新链表：");
+            test1.Display();
             Console.WriteLine("原始链表1：");
             linkList1.Display();
             Console.WriteLine("原始链表2：");
             linkList2.Display();
+
+            #region 符合平台要求的
+            //Console.WriteLine("两个非降序链表合并去重");
+            //linkList1.Merge2(linkList2);
+            //Console.WriteLine("合并去重后的链表");
+            //linkList1.Display();
+            //Console.WriteLine("原始链表1：");
+            //linkList1.Display();
+            //Console.WriteLine("原始链表2：");
+            //linkList2.Display();
             #endregion
 
             //LinkList<string> h = new LinkList<string>();
@@ -194,7 +194,6 @@ namespace BGLB.Project_01
             //linkList1.Display();
             //Console.WriteLine("原始链表2：");
             //linkList2.Display();
-            //Console.Read();
         }
 
         /// <summary>
@@ -227,6 +226,7 @@ namespace BGLB.Project_01
     */
             #endregion
         }
+
         /// <summary>
         /// 不更改链表 两个链表首尾合并返回新链表
         /// </summary>

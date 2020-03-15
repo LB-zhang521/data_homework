@@ -238,8 +238,7 @@ namespace BGLB.Project_01
         /// <summary>
         /// 两个非降序链表合并 有重复項 直接更改链表1
         /// </summary>
-        /// <param name="linkList1">第一个链表</param>
-        /// <param name="linkList2">第二个链表</param>
+        /// <param name="linkList">合并的链表</param>
         public void Merge1(LinkList<T> linkList)
         {
             if (linkList.head == null)
@@ -267,7 +266,7 @@ namespace BGLB.Project_01
             LinkList<T> newlink = new LinkList<T>();
             newlink.head = this.head;
             Node<T> Newtail = newlink.head;
-            Newtail.Next = null;
+           // Newtail.Next = null;
             Node<T> newnode = new Node<T>();
             while (p != null && q != null)
             {
@@ -293,7 +292,7 @@ namespace BGLB.Project_01
                     newnode = q;
                     q = q.Next;
                 }
-                newnode.Next = null;
+              // newnode.Next = null;
                 Newtail.Next = newnode;
                 Newtail = Newtail.Next;
             }
@@ -314,8 +313,9 @@ namespace BGLB.Project_01
             }
 
         }
+
         /// <summary>
-        /// 非降序链表合并排序输出（递归算法：）两个原始链表都会被更改为新链表
+        /// 非降序链表合并排序输出（递归算法：）两个原始链表都会被更改
         /// </summary>
         /// <param name="l1">链表1的头节点</param>
         /// <param name="l2">链表2的头节点</param>
