@@ -145,9 +145,6 @@ namespace BGLB.Project_01
         /// </summary>
         public static void zuoye2()
         {
-            #region 希翼作业2
-
-
             LinkList<string> linkList1 = new LinkList<string>();
             linkList1.Input();
             LinkList<string> linkList2 = new LinkList<string>();
@@ -177,7 +174,7 @@ namespace BGLB.Project_01
             //Console.WriteLine("原始链表2：");
             //linkList2.Display();
 
-
+            #region 符合平台要求的
             Console.WriteLine("两个非降序链表合并去重");
             linkList1.Merge2(linkList2);
             Console.WriteLine("合并去重后的链表");
@@ -186,6 +183,7 @@ namespace BGLB.Project_01
             linkList1.Display();
             Console.WriteLine("原始链表2：");
             linkList2.Display();
+            #endregion
 
             //LinkList<string> h = new LinkList<string>();
             //Node<string> a = linkList1.Merge(linkList1.Head, linkList2.Head);
@@ -197,7 +195,6 @@ namespace BGLB.Project_01
             //Console.WriteLine("原始链表2：");
             //linkList2.Display();
             //Console.Read();
-            #endregion
         }
 
         /// <summary>
