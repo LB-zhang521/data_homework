@@ -1,147 +1,172 @@
 ﻿using System;
 
-namespace ConsoleApplication1
+namespace BGLB.Project_01
 {
 
-    public class LinkList<T>
+    public class LinkList<T>  //链表类
     {
         private Node<T> head;
         public Node<T> Head
         {
-            get { return head; }
-            set { head = value; }
-        }
-        public LinkList(T[] arr, int j = 0)
-        {
-            head = new Node<T>();
-            head = new Node<T>();
-            for (int i = j; i < arr.Length; i++)
+            get
             {
-                this.Attpend(arr[i]);
+                return head;
+            }
+            set
+            {
+                head = value;
             }
         }
+        /// <summary>
+        /// 初始化 不带头元素的 单链表
+        /// </summary>
         public LinkList()
         {
             head = new Node<T>();
         }
-
-        public void InsertPost(T item, int i)
+        /// <summary>
+        /// 传入数组元素 转为链表;
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <param name="j"></param>
+        public LinkList(T[] arr, int j = 0)
         {
-            if (IsEmpty() || i < 0)
+            head = new Node<T>();
+            for (int i = j; i < arr.Length; i++)
             {
-                Console.WriteLine("List is empty or position is error!");
-                return;
-            }
-            if (i == 1)
-            {
-                Node<T> q = new Node<T>(item);
-                q.Next = head.Next.Next;
-                head.Next = q;
-                return;
-            }
-            Node<T> p = head;
-            int j = 0;
-            while (p.Next != null && j < i)
-            {
-                p = p.Next;
-                ++j;
-            }
-            if (j == i)
-            {
-                Node<T> q = new Node<T>(item);
-                q.Next = p.Next;
-                p.Next = q;
-            }
-            else
-            {
-                Console.WriteLine("Position is error");
+                this.Append(arr[i]);
             }
         }
+        /// <summary>
+        /// 判断链表是否为空
+        /// </summary>
+        /// <returns></returns>
         public bool IsEmpty()
         {
-            return head.Next == null ? true : false;
+            return head == null;
         }
-
-        public void Insert(T item, int i)
+        /// <summary>
+        /// 链表尾插
+        /// </summary>
+        /// <param name="item">数据</param>
+        /// <param name="i">元素节点</param>
+        public void InsertPost(T item, int i)   //在第i个元素之后插入item
         {
-            if (IsEmpty() || i < 0)
+            Node<T> newNode = new Node<T>(item);
+            if (head == null || i <= 0 || i > GetLength())
             {
-                Console.WriteLine("List is empty or position is error!");
-                return;
-            }
-            if (i == 1)
-            {
-                Node<T> q = new Node<T>(item);
-                q.Next = head.Next;
-                head = q;
-                return;
-            }
-            Node<T> p = head;
-            Node<T> r = new Node<T>();
-            int j = 0;
-            while (p.Next != null && j < i)
-            {
-                r = p;
-                p = p.Next;
-                ++j;
-            }
-            if (j == i)
-            {
-                Node<T> q = new Node<T>(item);
-                q.Next = p;
-                r.Next = q;
+                System.Console.WriteLine("检查链表是否为空并且确保参数大于0并且小于链表的长度");
             }
             else
             {
-                Console.WriteLine("position is error");
+                Node<T> temp = head;
+                for (int j = 0; j < i; j++)
+                {
+                    temp = temp.Next;
+                }
+                Node<T> p = temp.Next;
+                temp.Next = newNode;
+                newNode.Next = p;
             }
         }
-        public T Delete(int i)
+        /// <summary>
+        /// 链表头插
+        /// </summary>
+        /// <param name="item">数据</param>
+        /// <param name="i">元素节点</param>
+        public void Insert(T item, int i)   //在第i个位置插入item ，相当于在第i个元素之前插入 
         {
-            if (IsEmpty() || i < 0)
+            Node<T> newNode = new Node<T>(item);
+            if (head == null || i <= 0 || i > GetLength())
             {
-                Console.WriteLine("List is empty or position is error!");
-                return default(T);
-            }
-            Node<T> q = new Node<T>();
-            if (i == 1)
-            {
-                q = head;
-                head = head.Next;
-                return q.Data;
-            }
-            Node<T> p = head;
-            int j = 0;
-            while (p.Next != null && j < i)
-            {
-                ++j;
-                q = p;
-                p = p.Next;
-            }
-            if (j == i)
-            {
-                q.Next = p.Next;
-                return p.Data;
+                System.Console.WriteLine("检查链表是否为空并且确保参数大于0并且小于链表的长度");
             }
             else
             {
-                Console.WriteLine("The ith node is not exist");
-                return default(T);
-            }
-        }
+                if (i == 1)
+                {
+                    Node<T> p = head.Next;
+                    head = newNode;
+                    newNode.Next = p;
+                }
+                else
+                {
+                    Node<T> temp = head;
+                    for (int j = 1; j < i; j++)
+                    {
+                        temp = temp.Next;
+                    }
+                    Node<T> p = temp.Next;
+                    temp.Next = newNode;
+                    newNode.Next = p;
+                }
 
-        public int GetLength()
-        {
-            Node<T> p = head.Next;
-            int length = 0;
-            while (p != null)
-            {
-                length++;
-                p = p.Next;
             }
-            return length;
         }
-        public void ReversLinkList()
+        /// <summary>
+        /// 链表删除
+        /// </summary>
+        /// <param name="i">元素节点</param>
+        /// <returns></returns>
+        public T Delete(int i)   //删除第i个元素
+        {
+            T ret = default(T);
+            if (head == null || i <= 0 || i > GetLength())
+            {
+                System.Console.WriteLine("检查链表是否为空并且确保参数大于0并且小于链表的长度");
+                return ret;
+            }
+            else
+            {
+                if (i == 1)
+                {
+                    ret = head.Next.Data;
+                    head.Next = head.Next.Next;
+                }
+                else
+                {
+                    Node<T> temp = head.Next;
+                    for (int j = 1; j < i - 1; j++)
+                    {
+                        temp = temp.Next;
+                    }
+                    ret = temp.Next.Data;
+                    Node<T> p = temp.Next.Next;
+                    temp.Next = p;
+                }
+                return ret;
+            }
+        }
+        /// <summary>
+        /// 获取元素个数 
+        /// </summary>
+        /// <returns></returns>
+        public int GetLength()  //求链表长度
+        {
+            int ret = 0;
+            if (head != null)
+            {
+                Node<T> temp = head.Next;
+                while (true)
+                {
+                    if (temp != null)
+                    {
+                        temp = temp.Next;
+                        ret++;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
+            }
+            return ret;
+        }
+        /// <summary>
+        /// 单链表逆置
+        /// </summary>
+        public void ReversLinkList()  //就地逆置
         {
             Node<T> p = head.Next;
             Node<T> q = new Node<T>();
@@ -154,49 +179,110 @@ namespace ConsoleApplication1
                 head.Next = q;
             }
         }
-        public void Attpend(T item)
+        /// <summary>
+        /// 表尾追加元素
+        /// </summary>
+        /// <param name="item"></param>
+        public void Append(T item)   //表尾追加
         {
-            Node<T> s = new Node<T>(item);
-            if (IsEmpty())
+            Node<T> newNode = new Node<T>(item);
+            if (head.Next == null)
             {
-                head.Next = s;
+                head.Next = newNode;
             }
             else
             {
-                Node<T> p = head.Next;
-
-                while (p.Next != null)
+                Node<T> temp = head.Next;
+                while (true)
                 {
-                    p = p.Next;
+                    if (temp.Next != null)
+                    {
+                        temp = temp.Next;
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
-                p.Next = s;
+                temp.Next = newNode;
             }
         }
-
-
-        public LinkList<T> Merge1(LinkList<T> linkList1, LinkList<T> linkList2)
+        /// <summary>
+        /// 清空链表
+        /// </summary>
+        public void Clear()   //清除所有元素
         {
-            Node<T> p = linkList1.Head.Next;
-            Node<T> q = linkList2.Head.Next;
+            head = null;
+        }
+        /// <summary>
+        /// 链表的遍历输出
+        /// </summary>
+        /// <param name="linkList"></param>
+        public void Display()
+        {
+            if (this.IsEmpty())
+            {
+                Console.WriteLine("链表为空");
+                return;
+            }
+
+            Node<T> A = this.head.Next;
+            while (A != null)
+            {
+                Console.Write(A.Data + "\t");
+                A = A.Next;
+            }
+            Console.WriteLine();
+        }
+
+        /// <summary>
+        /// 两个非降序链表合并 有重复項 直接更改链表1
+        /// </summary>
+        /// <param name="linkList1">第一个链表</param>
+        /// <param name="linkList2">第二个链表</param>
+        public void Merge1(LinkList<T> linkList)
+        {
+            if (linkList.head == null)
+            {
+                return;
+            }
+            Node<T> A = this.head.Next;
+            Node<T> B = linkList.head.Next;
+            while (A.Next != null)
+            {
+                A = A.Next;
+            }
+            A.Next = B;
+        }
+
+        ///<summary>
+        /// 两个非降序链表合并去重 直接更改链表1
+        /// </summary>
+        /// <param name = "linkList1" > 第一个链表 </ param >
+        /// < param name="linkList2">第二个链表</param>
+        public void Merge2(LinkList<T> linkList)
+        {
+            Node<T> p = this.Head.Next;
+            Node<T> q = linkList.Head.Next;
             LinkList<T> newlink = new LinkList<T>();
-            newlink.head = linkList1.head;
+            newlink.head = this.head;
             Node<T> Newtail = newlink.head;
             Newtail.Next = null;
             Node<T> newnode = new Node<T>();
             while (p != null && q != null)
             {
-                while (p.Next != null &&Convert.ToInt16(p.Data) == Convert.ToInt16(p.Next.Data))
+                while (p.Next != null && Convert.ToDecimal(p.Data) == Convert.ToDecimal(p.Next.Data))
                 {
                     p = p.Next;
                 }
-                while (q.Next!=null &&Convert.ToInt16(q.Data) == Convert.ToInt16(q.Next.Data))
+                while (q.Next != null && Convert.ToDecimal(q.Data) == Convert.ToDecimal(q.Next.Data))
                 {
                     q = q.Next;
                 }
-                if (Convert.ToInt16(p.Data) <= Convert.ToInt16(q.Data))
+                if (Convert.ToDecimal(p.Data) <= Convert.ToDecimal(q.Data))
                 {
                     newnode = p;
-                    if (Convert.ToInt16(p.Data) == Convert.ToInt16(q.Data))
+                    if (Convert.ToDecimal(p.Data) == Convert.ToDecimal(q.Data))
                     {
                         q = q.Next;
                     }
@@ -218,7 +304,7 @@ namespace ConsoleApplication1
 
             while (p != null)
             {
-                while (Convert.ToInt16(Newtail.Data) == Convert.ToInt16(p.Data))
+                while (Convert.ToDecimal(Newtail.Data) == Convert.ToDecimal(p.Data))
                 {
                     p = p.Next;
                 }
@@ -226,92 +312,63 @@ namespace ConsoleApplication1
                 Newtail = Newtail.Next;
                 p = p.Next;
             }
-            return newlink;
+
         }
-
-
-
-
         /// <summary>
-        /// 递归 算法  不知道为什么有问题 力扣(LeetCode)上面搜的
+        /// 非降序链表合并排序输出（递归算法：）两个原始链表都会被更改为新链表
         /// </summary>
-        /// <param name="l1"></param>
-        /// <param name="l2"></param>
+        /// <param name="l1">链表1的头节点</param>
+        /// <param name="l2">链表2的头节点</param>
         /// <returns></returns>
-        public Node<T> Merge(Node<T> l1, Node<T> l2)
+        public Node<T> Merge(Node<T> list1, Node<T> list2)
         {
-            if (l1 == null || l2 == null)
+            if (list1 == null)
             {
-                return l1 ?? l2;
+                return list2;
             }
-            if (Convert.ToInt32(l1.Data) < Convert.ToInt32(l2.Data))
+            if (list2 == null)
             {
-                l1.Next = Merge(l1.Next, l2);
-                return l1;
+                return list1;
+            }
+            if (Convert.ToDecimal(list1.Data) <= Convert.ToDecimal(list2.Data))
+            {
+                list1.Next = Merge(list1.Next, list2);
+                return list1;
             }
             else
             {
-                l2.Next = Merge(l1, l2.Next);
-                return l2;
+                list2.Next = Merge(list1, list2.Next);
+                return list2;
             }
 
-            }
-
-            public void output()
-        {
-            Node<T> p = head.Next;
-            while (p != null)
-            {
-                Console.Write(p.Data + "\n");
-                p = p.Next;
-            }
         }
-        //public void input()
-        //{
-        //    // Console.WriteLine("输入若干个字符串(空格做间隔)：");
-        //    string str = Console.ReadLine();
-        //    string[] str1 = str.Split(' ');
-
-        //    for (int i = 0; i < str1.Length; i++)
-        //    {
-        //        try
-        //        {
-        //            string[] stu = str1[i].Split(',');
-        //            string temp = "[num=" + stu[0] + ",score=" + stu[1] + "]";
-        //            this.Attpend(temp);
-        //        }
-        //        catch (Exception e)
-        //        {
-        //            Console.WriteLine("出错：" + e.Message);
-        //            break;
-        //        }
-        //    }
-
-        //}
-
 
         /// <summary>
-        /// 链表的遍历输出
+        /// 链表的输入
         /// </summary>
-        /// <param name="linkList"></param>
-        public void Display()
+        public void Input()
         {
-            if (this.IsEmpty())
+            // Console.WriteLine("输入若干个字符串(空格做间隔)：");
+            string str = Console.ReadLine();
+            string[] str1 = str.Split(' ');
+
+            for (int i = 0; i < str1.Length; i++)
             {
-                Console.WriteLine("链表为空");
-                return;
+                try
+                {
+                    this.Append((T)(object)str1[i]);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("出错：" + e.Message);
+                    break;
+                }
             }
 
-            Node<T> A = this.head.Next;
-            while (A != null)
-            {
-                Console.Write(A.Data + " ");
-                A = A.Next;
-            }
-            Console.WriteLine();
         }
 
     }
-
-
 }
+
+
+
